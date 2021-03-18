@@ -391,7 +391,7 @@ public class Simulation extends Thread {
         System.out.print(currentMyPlace.getPlace().get(0).getPosition().getXx());
         System.out.print("-");
         System.out.println(currentMyPlace.getPlace().get(0).getPosition().getYy());
-        System.out.print("-------------");
+
         //TODO Lab 2:
         //Serialize and deserialize TMyPlace Object to verify if the the methods from MessageManagement are properly working
         
