@@ -369,7 +369,7 @@ public class Simulation extends Thread {
         //TODO Lab 1:
         //Update the position of the cow directly in this method
         int[] aux = new int[8];
-        int index = 1;
+        int index = 0;
         for(int i = 1; i < 9; i++){
             if(!currentMyPlace.getPlace().get(i).isWolf()
                     && !currentMyPlace.getPlace().get(i).isCow()
@@ -388,10 +388,11 @@ public class Simulation extends Thread {
         TPosition pos = currentMyPlace.getPlace().get(aux[rnd.nextInt(index)]).getPosition();
         
         currentMyPlace.getPlace().get(0).setPosition(pos);
-        System.out.print(currentMyPlace.getPlace().get(0).getPosition().getXx());
+        /*System.out.print(currentMyPlace.getPlace().get(0).getPosition().getXx());
         System.out.print("-");
-        System.out.println(currentMyPlace.getPlace().get(0).getPosition().getYy());
-        System.out.print("------");
+        System.out.println(currentMyPlace.getPlace().get(0).getPosition().getYy());*/
+        
+        
         //TODO Lab 2:
         //Serialize and deserialize TMyPlace Object to verify if the the methods from MessageManagement are properly working
         
@@ -407,12 +408,28 @@ public class Simulation extends Thread {
     private TMyPlace updateWolfPosition(TMyPlace currentMyPlace) throws JAXBException, IOException {
         //TODO Lab 1:
         //Update the position of the wolf directly in this method
-        if(currentMyPlace.getPlace().get(0).isWolf()){
-            TPosition pos = currentMyPlace.getPlace().get(0).getPosition();
-            pos.setXx(pos.getXx());
-            pos.setYy(pos.getYy());
-            //currentMyPlace.getPlace().get(0).setPosition(pos);
+        int[] aux = new int[8];
+        int index = 0;
+        for(int i = 1; i < 9; i++){
+            
+            if(!currentMyPlace.getPlace().get(i).isWolf()
+                    && !currentMyPlace.getPlace().get(i).isObstacle()
+                    && (currentMyPlace.getPlace().get(i).getGrass() >= 1)
+                    && (!(currentMyPlace.getPlace().get(i).getPosition().getXx() < 0)
+                    || !(currentMyPlace.getPlace().get(i).getPosition().getXx() > 14)
+                    || !(currentMyPlace.getPlace().get(i).getPosition().getYy() < 0)
+                    || !(currentMyPlace.getPlace().get(i).getPosition().getYy() > 14))
+               ){
+                aux[index++] = i;
+            }
         }
+        Random rnd = new Random(); 
+        TPosition pos = currentMyPlace.getPlace().get(aux[rnd.nextInt(index)]).getPosition();
+        
+        currentMyPlace.getPlace().get(0).setPosition(pos);
+        //System.out.print(currentMyPlace.getPlace().get(0).getPosition().getXx());
+        //System.out.print("-");
+        //System.out.println(currentMyPlace.getPlace().get(0).getPosition().getYy());
         
         //TODO Lab 2:
         //Serialize and deserialize TMyPlace Object to verify if the the methods from MessageManagement are properly working
